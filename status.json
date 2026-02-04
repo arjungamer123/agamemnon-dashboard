@@ -1,0 +1,12 @@
+{
+  "current": {
+    "task": "Building your project dashboard",
+    "why": "So you can see what I'm working on in real-time",
+    "started": "Just now"
+  },
+  "recent": [
+    {"task": "Setting up your 7am morning digest", "when": "5 min ago"},
+    {"task": "Creating Grapevine database for Reddit research", "when": "30 min ago"},
+    {"task": "Building your Second Brain in Notion", "when": "1 hour ago"}
+  ]
+}
