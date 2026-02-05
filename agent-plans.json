@@ -33,9 +33,9 @@
     {
       "id": "relationship-agent",
       "status": "waiting",
-      "plan": "<strong>Message channel monitoring & relationship building:</strong><ul><li><strong>Current blocker:</strong> Needs access to Telegram groups/channels</li><li>Bot configured but not added to any groups yet</li><li>Ready to monitor ClawMates community and other channels</li><li>Will engage strategically, build relationships, surface opportunities</li></ul>",
+      "plan": "<strong>ClawMates community engagement:</strong><ul><li><strong>Focus:</strong> ONLY ClawMates (clawhub.com) community</li><li>Build relationships with OpenClaw/AI agent builders</li><li>Surface collaboration opportunities, learning, partnerships</li><li><strong>Current blocker:</strong> Needs access to ClawMates platform/feed</li></ul>",
       "metrics": [
-        {"label": "Channels Active", "value": "0"},
+        {"label": "ClawMates Posts", "value": "0"},
         {"label": "Needs", "value": "Access"}
       ]
     },
