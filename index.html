@@ -3,77 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What Agamemnon Is Doing</title>
+    <title>Agent Command Center</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0f0f23;
+            background: #0a0a0f;
             color: #fff;
-            padding: 2rem;
+            padding: 1.5rem;
             min-height: 100vh;
         }
-        .container { max-width: 600px; margin: 0 auto; }
+        .container { max-width: 800px; margin: 0 auto; }
         header { text-align: center; margin-bottom: 2rem; }
-        .emoji { font-size: 3rem; }
-        h1 { font-size: 1.5rem; font-weight: normal; margin-top: 0.5rem; color: #888; }
-        .now {
-            background: rgba(255,255,255,0.1);
+        .emoji { font-size: 2.5rem; }
+        h1 { font-size: 1.3rem; font-weight: 600; margin-top: 0.5rem; color: #fff; }
+        .subtitle { color: #666; font-size: 0.85rem; margin-top: 0.3rem; }
+        
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .agent-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .agent-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.2);
+        }
+        
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .agent-icon { font-size: 1.5rem; }
+        
+        .agent-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .agent-status {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-left: auto;
+        }
+        
+        .status-working { background: #00ff88; animation: pulse 2s infinite; }
+        .status-idle { background: #666; }
+        .status-waiting { background: #ffaa00; }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .agent-task {
+            font-size: 0.85rem;
+            color: #ccc;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+        
+        .agent-meta {
+            font-size: 0.75rem;
+            color: #666;
+        }
+        
+        .ceo-status {
+            background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(136,0,255,0.1));
+            border: 1px solid rgba(0,255,136,0.3);
             border-radius: 16px;
             padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
-        .label { color: #00ff88; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
-        .task { font-size: 1.3rem; margin: 0.5rem 0; }
-        .why { color: #aaa; font-size: 0.95rem; }
-        .history { margin-top: 2rem; }
-        .history-title { color: #888; font-size: 0.9rem; margin-bottom: 1rem; }
-        .item {
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+        
+        .ceo-label {
+            color: #00ff88;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
         }
-        .item-when { color: #666; font-size: 0.8rem; }
-        .item-what { margin-top: 0.25rem; }
-        .updating { color: #666; font-size: 0.8rem; text-align: center; margin-top: 2rem; }
+        
+        .ceo-task {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .ceo-context {
+            color: #aaa;
+            font-size: 0.85rem;
+        }
+        
+        .updating {
+            color: #444;
+            font-size: 0.75rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <div class="emoji">⚔️</div>
-            <h1>Agamemnon</h1>
+            <h1>Agent Command Center</h1>
+            <div class="subtitle">Live monitoring • Updates every 30s</div>
         </header>
         
-        <div class="now">
-            <div class="label">Working on now</div>
-            <div class="task" id="current-task">Loading...</div>
-            <div class="why" id="current-why">...</div>
+        <div class="ceo-status">
+            <div class="ceo-label">CEO (Agamemnon)</div>
+            <div class="ceo-task" id="ceo-task">Coordinating agents...</div>
+            <div class="ceo-context" id="ceo-context">...</div>
         </div>
         
-        <div class="history">
-            <div class="history-title">Recent activity</div>
-            <div id="recent-list">Loading...</div>
+        <div class="agent-grid" id="agent-grid">
+            <!-- Agents populated by JavaScript -->
         </div>
         
-        <div class="updating">Updates every 30 seconds</div>
+        <div class="updating">Live data from GitHub • agamemnon-dashboard.pages.dev</div>
     </div>
     
     <script>
+        const agentIcons = {
+            'growth-agent': '🚀',
+            'grapevine-agent': '🍇',
+            'competitor-agent': '👁️',
+            'relationship-agent': '🤝',
+            'infrastructure-agent': '🔧',
+            'digest-agent': '📰'
+        };
+        
+        const agentNames = {
+            'growth-agent': 'Growth Strategist',
+            'grapevine-agent': 'Grapevine',
+            'competitor-agent': 'Competitor Intel',
+            'relationship-agent': 'Relationships',
+            'infrastructure-agent': 'Infrastructure',
+            'digest-agent': 'Morning Digest'
+        };
+        
         async function load() {
             try {
-                // Fetch status.json from GitHub
-                const res = await fetch('https://raw.githubusercontent.com/arjungamer123/agamemnon-dashboard/main/status.json');
+                const res = await fetch('https://raw.githubusercontent.com/arjungamer123/agamemnon-dashboard/main/agents-status.json?' + Date.now());
                 const data = await res.json();
                 
-                document.getElementById('current-task').textContent = data.current.task;
-                document.getElementById('current-why').textContent = data.current.why;
+                // CEO status
+                document.getElementById('ceo-task').textContent = data.ceo.task;
+                document.getElementById('ceo-context').textContent = data.ceo.context;
                 
-                document.getElementById('recent-list').innerHTML = data.recent.map(r => 
-                    '<div class="item"><div class="item-when">' + r.when + '</div><div class="item-what">' + r.task + '</div></div>'
-                ).join('');
+                // Agent grid
+                const grid = document.getElementById('agent-grid');
+                grid.innerHTML = data.agents.map(agent => {
+                    const icon = agentIcons[agent.id] || '🤖';
+                    const name = agentNames[agent.id] || agent.id;
+                    const statusClass = agent.status === 'working' ? 'status-working' : 
+                                      agent.status === 'waiting' ? 'status-waiting' : 'status-idle';
+                    
+                    return `
+                        <div class="agent-card">
+                            <div class="agent-header">
+                                <div class="agent-icon">${icon}</div>
+                                <div class="agent-name">${name}</div>
+                                <div class="agent-status ${statusClass}"></div>
+                            </div>
+                            <div class="agent-task">${agent.task}</div>
+                            <div class="agent-meta">${agent.updated}</div>
+                        </div>
+                    `;
+                }).join('');
             } catch(e) {
-                document.getElementById('current-task').textContent = 'Setting up dashboard';
-                document.getElementById('current-why').textContent = 'Almost ready...';
+                document.getElementById('ceo-task').textContent = 'Initializing agents...';
+                document.getElementById('ceo-context').textContent = 'Dashboard loading...';
             }
         }
         
