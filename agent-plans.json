@@ -1,0 +1,54 @@
+{
+  "agents": [
+    {
+      "id": "growth-agent",
+      "status": "working",
+      "plan": "<strong>Building Abandoned Cart Offer implementation plan:</strong><ul><li><strong>Technical:</strong> Superwall integration, trigger when users abandon trial signup flow</li><li><strong>Targeting:</strong> 50% of abandoners, show offer after 30 seconds</li><li><strong>Offer:</strong> One-time 30% discount to complete trial signup</li><li><strong>Success metrics:</strong> Trial start rate improvement (target: 15% → 20%)</li><li><strong>Timeline:</strong> 10 days to build, 2-3 weeks to measure</li><li><strong>Expected impact:</strong> M1 ROAS 0.6 → 0.8 (+33% conversion efficiency)</li></ul>",
+      "metrics": [
+        {"label": "Current M1 ROAS", "value": "0.6"},
+        {"label": "Target M1 ROAS", "value": "1.5+"},
+        {"label": "Experiments Ready", "value": "8"}
+      ]
+    },
+    {
+      "id": "grapevine-agent",
+      "status": "idle",
+      "plan": "<strong>Reddit community intelligence monitoring:</strong><ul><li>21 threads currently tracked in Notion</li><li>Last scan: Added 1 new thread (r/ipadmini)</li><li>Next scan: Tomorrow 6am PST</li><li><strong>Optimization planned:</strong> Expanding search terms to catch more conversational patterns</li><li>Considering new subreddits: r/getdisciplined, r/ADHD</li></ul>",
+      "metrics": [
+        {"label": "Threads Tracked", "value": "21"},
+        {"label": "Fresh (<48h)", "value": "4"},
+        {"label": "Next Scan", "value": "6am PST"}
+      ]
+    },
+    {
+      "id": "competitor-agent",
+      "status": "waiting",
+      "plan": "<strong>Tracking 6 competitors every 6 hours:</strong><ul><li>Untold, Purpose AI, Sonia, Ash, Reflecty, Jour</li><li><strong>Current blocker:</strong> Brave Search API hit rate limit</li><li>Only 1/6 competitors scanned last cycle</li><li>Waiting for API quota refresh</li><li>Next scan: 6 hours from last attempt</li></ul>",
+      "metrics": [
+        {"label": "Competitors", "value": "6"},
+        {"label": "Last Scan", "value": "API Limited"},
+        {"label": "Next Scan", "value": "6h"}
+      ]
+    },
+    {
+      "id": "relationship-agent",
+      "status": "waiting",
+      "plan": "<strong>Message channel monitoring & relationship building:</strong><ul><li><strong>Current blocker:</strong> Needs access to Telegram groups/channels</li><li>Bot configured but not added to any groups yet</li><li>Ready to monitor ClawMates community and other channels</li><li>Will engage strategically, build relationships, surface opportunities</li></ul>",
+      "metrics": [
+        {"label": "Channels Active", "value": "0"},
+        {"label": "Needs", "value": "Access"}
+      ]
+    },
+    {
+      "id": "infrastructure-agent",
+      "status": "idle",
+      "plan": "<strong>System health & stability monitoring:</strong><ul><li>✅ Gateway: Operational with health checks every 60s</li><li>✅ All cron jobs running on schedule</li><li>✅ Dashboard deployed and live</li><li>✅ Telegram connection stable</li><li>⚠️ Brave API rate limiting detected (non-critical)</li></ul>",
+      "metrics": [
+        {"label": "System Health", "value": "✅"},
+        {"label": "Uptime", "value": "Stable"},
+        {"label": "Health Checks", "value": "Every 60s"}
+      ]
+    }
+  ],
+  "lastUpdate": "2026-02-05T18:54:00Z"
+}
